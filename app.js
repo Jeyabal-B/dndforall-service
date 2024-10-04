@@ -1,15 +1,18 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
 const PORT = 8080;
+
+//Importing the routes, thereby getting all APIs mapped
+const userRoutes = require('./routes/userRoutes');
+const characterRoutes = require('./routes/characterRoutes');
+
+//Middleware for parsing JSON requests
+app.use(express.json());
+
+app.use('/users', userRoutes);
+app.use('/characters', characterRoutes);
 
 app.listen(PORT, () => {
     console.log('Listening on port : ' + PORT);
 });
 
-app.get('/test', (request, response) => {
-    response.status(200).send({
-        "name":"darco",
-        "class":"Warlock"
-
-    })
-
-});
