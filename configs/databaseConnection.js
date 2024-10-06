@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 //configuring mongoDB using mongoose driver
-const uri = "mongodb://localhost:27017";
+const uri = "mongodb://localhost:27017/dndDB";
+//const uri = process.env.MONGODB_URL;
 
 const connectDB = async () => {
     try{
