@@ -7,8 +7,6 @@ app.use(express.json());
 
 const userService = require('../services/userService');
 
-//const users = [{id: 101, name: "Jey"}];
-
 //APIs are already defined in the userRoutes, define the methods
 exports.getAllUsers = async (request, response) => {
     const allUsers = await users.find();
@@ -31,9 +29,8 @@ exports.addUser = async (request, response) => {
         response.status(400);
         throw new Error("All fields are mandatory")
     }
-    const user = await users.create({
-        name
-    });
-
+    const user = await users.create(request.body);
+    console.log("Character successfully created!");
     response.status(201).json(user);
+    
 };
