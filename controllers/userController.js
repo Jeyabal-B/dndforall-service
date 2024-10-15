@@ -9,14 +9,16 @@ const userService = require('../services/userService');
 
 //APIs are already defined in the userRoutes, define the methods
 exports.getAllUsers = async (request, response) => {
+    console.log("Request received to find all the users");
     const allUsers = await users.find();
     console.log("found values : ", allUsers);
     response.status(200).json(allUsers);
     //response.send(allUsers);
 }
 
-exports.getUserById = (request, response) => {
-    const user = users.find(u => u.id == parseInt(request.params.id))
+exports.getUserById = async (request, response) => {
+    console.log("Received Request to find the user by userId : ", request.body);
+    const user = await users.find(u => u.id == parseInt(request.params.id))
     if(!user) return response.status(404).send("User does not exist")
     response.send(user);
 }
