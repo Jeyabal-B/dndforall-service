@@ -16,10 +16,19 @@ exports.getAllCharacters = async (request, response) => {
     response.status(200).json(allCharacters);
 }
 
-exports.getCharacterById = (request, response) => {
-    const character = characters.find(u => u.id == parseInt(request.params.id))
-    if(!character) return response.status(404).send("Character does not exist")
-    response.send(character);
+exports.getCharacterById = async (request, response) => {
+    console.log("Received Request to find the character by charId : ", request.params);
+    try {
+        const character = await characters.findOne({ charId: request.params.charId})
+        if (!character) {
+            return response.status(404).send("Character does not exist")
+        }
+        response.send(character);
+    }
+    catch (err) {
+        console.error("Error finding character:", err);
+        response.status(500).send("Server error");
+    }
 }
 
 exports.addCharacter = async (request, response) => {
