@@ -7,12 +7,11 @@ app.use(express.json());
 
 const characterService = require('../services/characterService');
 
-//const characters = [{id: 1001, name: "Darco", class: "Warlock"}];
-
 //APIs are already defined in the characterRoutes, define the methods
 exports.getAllCharacters = async (request, response) => {
+    console.log("Request received to fetch all the characters");
     const allCharacters = await characters.find();
-    console.log("found values : ", allCharacters);
+    console.log("Total characters fetched : ", allCharacters.length);
     response.status(200).json(allCharacters);
 }
 
