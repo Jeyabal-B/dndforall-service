@@ -46,7 +46,7 @@ exports.deleteCharacter = async (request, response) => {
     console.log("Request received to delete the character : ", request.body);
     const { charId } = request.body;
     if (!charId) {
-        return response.status(400).json({ error: "Key is mandatory" }); // Send JSON response
+        return response.status(400).json({ error: "charId is mandatory" });
     }
     try {
         const character = await characters.findOne({ charId });
@@ -58,6 +58,34 @@ exports.deleteCharacter = async (request, response) => {
         response.status(204).send();
     } catch (err) {
         console.error("Error occured while deleting the character : ", err);
-        response.status(500).json({ error: "Server Error", message: err.message });
+        response.status(500).json({ error: "Error occured while deleting the character" });
+    }
+}
+
+exports.updateCharacter = async (request, response) => {
+    console.log("Request received to update the character : ", request.body);
+    //Extracts the charId first, and then assigns the remaining fields to the updates object
+    const { charId, ...updates } = request.body;
+    if (!charId) {
+        return response.status(400).json({ error: "charId is mandatory" });
+    }
+    console.log("Data to be updated : ", updates);
+    if( !updates || typeof updates !== 'object') {
+        return response.status(400).json({ error: "The given fields are not valid" });
+    }
+    try {
+        const updatedCharacter = await characters.findOneAndUpdate (
+            { charId },
+            { $set: updates },
+            { new: true } // returns the updated document
+        );
+        if (!updatedCharacter) {
+            return response.status(404).json({ error: `Character with the charId ${charId} was not found` });
+        }
+        console.log(`Successfully updated the character with the charId : ${charId}`);
+        response.status(200).json({ message: `Successfully updated the character with the charId ${charId}!`, updatedCharacter });
+    } catch (err) {
+        console.error("Error occured while updating the character : ", err);
+        response.status(500).json({ error: "Error occured while updating the character" });
     }
 }
