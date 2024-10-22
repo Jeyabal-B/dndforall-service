@@ -5,7 +5,30 @@ const characterSchema = mongoose.Schema({
     userId: Number,
     charId: Number,
     gender: String,
-    class: String,
+    class: {
+        startingClass: String,
+        isMultiClass: Boolean,
+        hitDiceDesignated: Number,
+        hitDiceUsed: Number,
+        subClass: String,
+        isSpellCaster: Boolean,
+        spellCastingAbility:{
+            spellCasterType: String,
+            spellRecoveryOn: String,
+            startingSpellSlots: Number,
+            maxSpellSlots: Number,
+            currentSpellSlots: Number
+        },
+        classFeatures: [{
+            featureId: Number,
+            featureType: String,
+            featureName: String,
+            prerequisite: String,
+            description: String,
+            displayOrder: Number,
+            limitations: String
+        }],
+    },
     race: {
         baseRace: String,
         raceId: Number,
@@ -29,7 +52,6 @@ const characterSchema = mongoose.Schema({
         birthmarks: String
     },
     backgroundInfo: {},
-    inventory: {},
     currencies: {
         sp: Number,
         gp: Number
@@ -45,6 +67,23 @@ const characterSchema = mongoose.Schema({
     feats: String,
     spellSlots: Number,
     abilityScores: {},
+    proficiencies: {},
+    expertises: {},
+    abilityChecks: {
+        advantages: {},
+        disadvantages: {}
+    },
+    savingThrows: {
+        advantages: {},
+        disadvantages: {}
+    },
+    deathSaves:{
+        isStable: Boolean,
+        successfulSaves: Number,
+        failedSaves: Number,
+        totalSavesRequired: Number
+        //should i move this to config - its always 3
+    },
     maxHitPoints: Number,
     currentHitPoints: Number,
     temporaryHitPoints: Number,
@@ -53,11 +92,48 @@ const characterSchema = mongoose.Schema({
     speeds:{
         walkingSpeed: Number,
         runningSpeed: Number,
-        walkingSpeed: Number,
-        walkingSpeed: Number,
+        flyingSpeed: Number,
+        swimmingSpeed: Number,
+        climbingSpeed: Number
+    },
+    carryCapacity:{
+        weightCarry: Number,
+        pushDragLift: Number
+    },
+    inventory: [{
+        entityId: Number,
+        entitytype: String,
+        entityDefinition: {
+            eqpId: Number,
+            eqpType: String,
+            isEquipped: Boolean,
+            isMagic: Boolean,
+            isHomebrew: Boolean,
+            isAttunable: Boolean,
+            isConsumable: Boolean,
+            rarity: String,
+            cost: Number,
+            weight: Number,
+            descirption: String
+        }
+    }],
+    knownSpells:[{
+        spell:{
+            spellId: Number,
+            spellType: String,
+            name: String,
+            preparationTime: String,
+            actionRequired: String,
+            componentsRequired: [String],
+            displayOrder: Number
+        }
+    }],
+    fightingStyles: [String],
+    actionEconomy: {
+        actionsPerTurn: Number,
+        actionsAvailable: [String],
+        bonusActionsAvailable: [String],
     }
-    
-
 });
 
 module.exports = mongoose.model('Characters', characterSchema);
