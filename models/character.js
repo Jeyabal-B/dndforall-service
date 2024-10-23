@@ -65,7 +65,21 @@ const characterSchema = mongoose.Schema({
         theme: String
     },
     feats: String,
-    spellSlots: Number,
+    
+    spellSkills: {
+        spellSlots: Number,
+        knownSpells:[{
+            spell:{
+                spellId: Number,
+                spellType: String,
+                name: String,
+                preparationTime: String,
+                actionRequired: String,
+                componentsRequired: [String],
+                displayOrder: Number
+            }
+        }],
+    },
     abilityScores: {},
     proficiencies: {},
     expertises: {},
@@ -117,17 +131,7 @@ const characterSchema = mongoose.Schema({
             descirption: String
         }
     }],
-    knownSpells:[{
-        spell:{
-            spellId: Number,
-            spellType: String,
-            name: String,
-            preparationTime: String,
-            actionRequired: String,
-            componentsRequired: [String],
-            displayOrder: Number
-        }
-    }],
+
     fightingStyles: [String],
     actionEconomy: {
         actionsPerTurn: Number,
