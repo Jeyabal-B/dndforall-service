@@ -24,16 +24,7 @@ const characterController = require('../controllers/characterController');
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   charId:
- *                     type: string
- *                   name:
- *                     type: string
- *                   class:
- *                     type: string
- *                   level:
- *                     type: integer
+ *                 $ref: '#/components/schemas/Character'
  */
 router.get('/getAll', characterController.getAllCharacters);
 
@@ -49,23 +40,14 @@ router.get('/getAll', characterController.getAllCharacters);
  *         required: true
  *         description: The ID of the character to retrieve
  *         schema:
- *           type: string
+ *           type: integer
  *     responses:
  *       200:
  *         description: Character object
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 charId:
- *                   type: string
- *                 name:
- *                   type: string
- *                 class:
- *                   type: string
- *                 level:
- *                   type: integer
+ *               $ref: '#/components/schemas/Character'
  *       404:
  *         description: Character not found
  */
@@ -81,18 +63,15 @@ router.get('/:charId', characterController.getCharacterById);
  *       required: true
  *       content:
  *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               class:
- *                 type: string
- *               level:
- *                 type: integer
+ *             schema:
+ *               $ref: '#/components/schemas/Character'
  *     responses:
  *       201:
  *         description: Character created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *                 $ref: '#/components/schemas/Character'
  *       400:
  *         description: Invalid input
  */
@@ -112,7 +91,7 @@ router.post('/add', characterController.addCharacter);
  *             type: object
  *             properties:
  *               charId:
- *                 type: string
+ *                 type: integer
  *     responses:
  *       204:
  *         description: Character deleted successfully
@@ -132,19 +111,14 @@ router.delete('/', characterController.deleteCharacter);
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               charId:
- *                 type: string
- *               name:
- *                 type: string
- *               class:
- *                 type: string
- *               level:
- *                 type: integer
+ *               $ref: '#/components/schemas/Character'
  *     responses:
  *       200:
  *         description: Character updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *                 $ref: '#/components/schemas/Character'
  *       404:
  *         description: Character not found
  *       400:
