@@ -6,6 +6,7 @@ const characterSchema = mongoose.Schema({
     charId: Number,
     gender: String,
     class: String,
+    level: Number,
     futureClass: {
         startingClass: String,
         isMultiClass: Boolean,
