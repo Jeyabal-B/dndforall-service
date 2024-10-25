@@ -5,7 +5,8 @@ const characterSchema = mongoose.Schema({
     userId: Number,
     charId: Number,
     gender: String,
-    class: {
+    class: String,
+    futureClass: {
         startingClass: String,
         isMultiClass: Boolean,
         hitDiceDesignated: Number,

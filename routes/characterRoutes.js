@@ -4,7 +4,7 @@ const characterController = require('../controllers/characterController');
 
 //Defining the APIs and map the corresponding methods in controllers
 router.get('/getAll', characterController.getAllCharacters);
-router.get('/:id', characterController.getCharacterById);
+router.get('/:charId', characterController.getCharacterById);
 router.post('/add', characterController.addCharacter);
 router.delete('/', characterController.deleteCharacter);
 router.put('/', characterController.updateCharacter);

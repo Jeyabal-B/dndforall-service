@@ -22,6 +22,7 @@ exports.getCharacterById = async (request, response) => {
         if (!character) {
             return response.status(404).send("Character does not exist")
         }
+        console.log("Character Object found : ", character);
         response.send(character);
     }
     catch (err) {
