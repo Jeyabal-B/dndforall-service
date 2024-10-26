@@ -24,12 +24,7 @@ const userController = require('../controllers/userController');
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   userI:
- *                     type: integer
- *                   name:
- *                     type: string
+ *                 $ref: '#/components/schemas/User'
  */
 router.get('/getAll', userController.getAllUsers);
 
@@ -52,12 +47,7 @@ router.get('/getAll', userController.getAllUsers);
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 userI:
- *                   type: integer
- *                 name:
- *                   type: string
+ *               $ref: '#/components/schemas/User'
  *       404:
  *         description: User not found
  */
@@ -73,16 +63,15 @@ router.get('/:userId', userController.getUserById);
  *       required: true
  *       content:
  *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               userI:
- *                 type: integer
+ *             schema:
+ *               $ref: '#/components/schemas/User'
  *     responses:
  *       201:
  *         description: User created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *                 $ref: '#/components/schemas/User'
  *       400:
  *         description: Invalid input
  */
@@ -122,17 +111,14 @@ router.delete('/', userController.deleteUser);
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               userId:
- *                 type: integer
- *               name:
- *                 type: string
- *               email:
- *                 type: string
+ *             $ref: '#/components/schemas/User'
  *     responses:
  *       200:
  *         description: User updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *             $ref: '#/components/schemas/User'
  *       404:
  *         description: User not found
  *       400:
