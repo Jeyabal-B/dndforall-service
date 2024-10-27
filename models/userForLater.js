@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//keeping this object simple for testing purposes
+//keeping this original object for later
 const userSchema = mongoose.Schema({
     name: String,
     username: String,
@@ -13,7 +13,16 @@ const userSchema = mongoose.Schema({
     memberSince: String,
     charactersCreated: [{}],
     isInActiveCampaign: Boolean,
-    campaignInfo: {}
+    campaignInfo: {},
+    graphics: {
+        displayAvatarUrl: String,
+        frame: String,
+        backdrop:{
+            backdropUrl: String
+        },
+        theme: String
+    },
+    misc: {}
 });
 
 module.exports = mongoose.model('Users', userSchema);
