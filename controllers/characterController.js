@@ -16,9 +16,9 @@ exports.getAllCharacters = async (request, response) => {
 }
 
 exports.getCharacterById = async (request, response) => {
-    console.log("Request received to find the character by charId : ", request.params);
+    console.log("Request received to find the character by id : ", request.params);
     try {
-        const character = await characters.findOne({ charId: request.params.charId })
+        const character = await characters.findOne({ _id: request.params.id })
         if (!character) {
             return response.status(404).send("Character does not exist")
         }
@@ -45,17 +45,17 @@ exports.addCharacter = async (request, response) => {
 
 exports.deleteCharacter = async (request, response) => {
     console.log("Request received to delete the character : ", request.body);
-    const { charId } = request.body;
-    if (!charId) {
-        return response.status(400).json({ error: "charId is mandatory" });
+    const { _id } = request.body;
+    if (!_id) {
+        return response.status(400).json({ error: "ID is mandatory" });
     }
     try {
-        const character = await characters.findOne({ charId });
+        const character = await characters.findOne({ _id });
         if (!character) {
-            return response.status(404).json({ error: `Character with the charId ${charId} was not found` });
+            return response.status(404).json({ error: `Character with the ID ${_id} was not found` });
         }
-        await characters.deleteOne({ charId });
-        console.log(`Character with the charId ${charId} successfully deleted!`);
+        await characters.deleteOne({ _id });
+        console.log(`Character with the ID ${_id} successfully deleted!`);
         response.status(204).send();
     } catch (err) {
         console.error("Error occured while deleting the character : ", err);
@@ -65,10 +65,10 @@ exports.deleteCharacter = async (request, response) => {
 
 exports.updateCharacter = async (request, response) => {
     console.log("Request received to update the character : ", request.body);
-    //Extracts the charId first, and then assigns the remaining fields to the updates object
-    const { charId, ...updates } = request.body;
-    if (!charId) {
-        return response.status(400).json({ error: "charId is mandatory" });
+    //Extracts the ID first, and then assigns the remaining fields to the updates object
+    const { _id, ...updates } = request.body;
+    if (!_id) {
+        return response.status(400).json({ error: "ID is mandatory" });
     }
     console.log("Data to be updated : ", updates);
     if( !updates || typeof updates !== 'object') {
@@ -76,15 +76,15 @@ exports.updateCharacter = async (request, response) => {
     }
     try {
         const updatedCharacter = await characters.findOneAndUpdate (
-            { charId },
+            { _id },
             { $set: updates },
             { new: true } // returns the updated document
         );
         if (!updatedCharacter) {
-            return response.status(404).json({ error: `Character with the charId ${charId} was not found` });
+            return response.status(404).json({ error: `Character with the ID ${_id} was not found` });
         }
-        console.log(`Successfully updated the character with the charId : ${charId}`);
-        response.status(200).json({ message: `Successfully updated the character with the charId ${charId}!`, updatedCharacter });
+        console.log(`Successfully updated the character with the ID : ${_id}`);
+        response.status(200).json({ message: `Successfully updated the character with the ID ${_id}!`, updatedCharacter });
     } catch (err) {
         console.error("Error occured while updating the character : ", err);
         response.status(500).json({ error: "Error occured while updating the character" });

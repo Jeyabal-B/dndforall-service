@@ -30,17 +30,17 @@ router.get('/getAll', characterController.getAllCharacters);
 
 /**
  * @swagger
- * /characters/{charId}:
+ * /characters/{id}:
  *   get:
- *     summary: Retrieve a character by charId
+ *     summary: Retrieve a character by id
  *     tags: [Characters]
  *     parameters:
  *       - in: path
- *         name: charId
+ *         name: id
  *         required: true
- *         description: The ID of the character to retrieve
+ *         description: The Primary Key (PK) of the character to retrieve
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
  *         description: Character object
@@ -51,7 +51,7 @@ router.get('/getAll', characterController.getAllCharacters);
  *       404:
  *         description: Character not found
  */
-router.get('/:charId', characterController.getCharacterById);
+router.get('/:id', characterController.getCharacterById);
 
 /**
  * @swagger
@@ -90,8 +90,8 @@ router.post('/add', characterController.addCharacter);
  *           schema:
  *             type: object
  *             properties:
- *               charId:
- *                 type: integer
+ *               _id:
+ *                 type: string
  *     responses:
  *       204:
  *         description: Character deleted successfully
