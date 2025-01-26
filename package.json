@@ -1,6 +1,6 @@
 {
   "name": "services",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Microservices for the dnd for all project",
   "main": "app.js",
   "scripts": {
